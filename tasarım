@@ -1,0 +1,74 @@
+import 'package:flutter/material.dart';
+
+void main() => runApp(MaterialApp(home: TofasGaraj(), debugShowCheckedModeBanner: false));
+
+class TofasGaraj extends StatefulWidget {
+  @override
+  _TofasGarajState createState() => _TofasGarajState();
+}
+
+class _TofasGarajState extends State<TofasGaraj> {
+  Color arabaRengi = Colors.white;
+  String jantTipi = "Standart";
+  bool basikMi = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.grey[900],
+      appBar: AppBar(title: Text("TOFAŞ MODİFİYE GARAJI"), backgroundColor: Colors.redAccent),
+      body: Column(
+        children: [
+          // Araba Önizleme Alanı
+          Container(
+            margin: EdgeInsets.all(20),
+            height: 150,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: arabaRengi,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(50),
+                topRight: Radius.circular(100),
+                bottomLeft: Radius.circular(basikMi ? 5 : 20),
+                bottomRight: Radius.circular(basikMi ? 5 : 20),
+              ),
+              boxShadow: [BoxShadow(color: Colors.black54, blurRadius: 10, offset: Offset(0, 5))],
+            ),
+            child: Center(child: Text("DOĞAN SLX", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24))),
+          ),
+          
+          // Modifiye Paneli
+          Expanded(
+            child: ListView(
+              children: [
+                ListTile(
+                  title: Text("Renk Seçimi", style: TextStyle(color: Colors.white)),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(icon: Icon(Icons.circle, color: Colors.red), onPressed: () => setState(() => arabaRengi = Colors.red)),
+                      IconButton(icon: Icon(Icons.circle, color: Colors.white), onPressed: () => setState(() => arabaRengi = Colors.white)),
+                      IconButton(icon: Icon(Icons.circle, color: Colors.blue), onPressed: () => setState(() => arabaRengi = Colors.blue)),
+                    ],
+                  ),
+                ),
+                SwitchListTile(
+                  title: Text("Dip Basık Yap", style: TextStyle(color: Colors.white)),
+                  value: basikMi,
+                  onChanged: (v) => setState(() => basikMi = v),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: ElevatedButton(
+                    onPressed: () => print("Garajdan Çıkış Yapıldı!"),
+                    child: Text("AYARLARI KAYDET"),
+                  ),
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
